@@ -2,16 +2,15 @@ from setuptools import setup, find_packages
 
 setup(
     name='DocumentsReader',
-    version='0.1.0',
+    version='1.1.1',
     packages=find_packages(),
     install_requires=[
         'WeasyPrint==62.1',
-        'Pillow==9.4.0',
+        'Pillow==10.1.0',
         'python-docx==1.1.2',
         'python-pptx==0.6.23',
         'openpyxl==3.1.2',
         'pdf2image==1.17.0',
-        'Pillow==10.1.0',
         'torch==2.1.2',
         'torchvision==0.16.2',
         'transformers==4.40.0',
