@@ -24,6 +24,10 @@ Before you begin, ensure you have the following software installed:
       ```sh
       brew install poppler
       ```
+2. Install packages
+      ```sh
+      pip install -r requirements.txt
+      ```
 ## Example
 
 1. The script will load document, apply the pre-trained model, and generate JSON responses.
