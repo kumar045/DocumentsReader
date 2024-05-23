@@ -16,15 +16,15 @@ Before you begin, ensure you have the following software installed:
 
 1. Install Poppler (required for `pdf2image`):
 
-    - **Ubuntu/Debian**:
+    - Ubuntu/Debian:
       ```sh
       sudo apt-get install poppler-utils
       ```
-    - **macOS** (using Homebrew):
+    - macOS (using Homebrew):
       ```sh
       brew install poppler
       ```
-2. Install packages
+2. Install the packages
       ```sh
       pip install -r requirements.txt
       ```
@@ -32,7 +32,7 @@ Before you begin, ensure you have the following software installed:
 
 1. The script will load document, apply the pre-trained model, and generate JSON responses.
 
-- **Documents Processing**:
+- Documents Processing:
   - The script loads a pre-trained model using the `transformers` library.
   - It generates a JSON response using the model.
   - The responses can be printed or saved for further analysis.
