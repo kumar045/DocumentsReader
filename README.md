@@ -14,13 +14,7 @@ Before you begin, ensure you have the following software installed:
 
 ## Installation
 
-1. Install the necessary Python package:
-
-    ```sh
-    pip install documentsreader
-    ```
-
-2. Install Poppler (required for `pdf2image`):
+1. Install Poppler (required for `pdf2image`):
 
     - **Ubuntu/Debian**:
       ```sh
