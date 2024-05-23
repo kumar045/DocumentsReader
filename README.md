@@ -34,7 +34,7 @@ Before you begin, ensure you have the following software installed:
 
 1. The script will load document, apply the pre-trained model, and generate JSON responses.
 
-- **Image Processing**:
+- **Documents Processing**:
   - The script loads a pre-trained model using the `transformers` library.
   - It generates a JSON response using the model.
   - The responses can be printed or saved for further analysis.
