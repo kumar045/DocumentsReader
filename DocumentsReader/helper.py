@@ -36,7 +36,7 @@ def convert_pdf_to_images(pdf_path, output_folder):
 
 def convert_docx_to_images(docx_path, output_folder):
     doc = Document(docx_path)
-    font_path = "/content/drive/MyDrive/DejaVuSans.ttf"
+    font_path = "font/DejaVuSans.ttf"
     for i, para in enumerate(doc.paragraphs):
         image = create_image_with_text(para.text, font_path)
         image_path = os.path.join(output_folder, f"page_{i+1}.png")
@@ -46,7 +46,7 @@ def convert_docx_to_images(docx_path, output_folder):
 def convert_txt_to_images(txt_path, output_folder):
     with open(txt_path, "r") as file:
         text = file.read()
-    font_path = "/content/drive/MyDrive/DejaVuSans.ttf"
+    font_path = "font/DejaVuSans.ttf"
     image = create_image_with_text(text, font_path)
     image_path = os.path.join(output_folder, "full_text.png")
     image.save(image_path, "PNG")
