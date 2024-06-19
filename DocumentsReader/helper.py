@@ -37,8 +37,33 @@ def convert_pdf_to_images(pdf_path, output_folder):
 def convert_docx_to_images(docx_path, output_folder):
     doc = Document(docx_path)
     font_path = "font/DejaVuSans.ttf"
-    for i, para in enumerate(doc.paragraphs):
-        image = create_image_with_text(para.text, font_path)
+    font = ImageFont.truetype(font_path, 12)
+
+    pages = []
+    current_page = []
+
+    for para in doc.paragraphs:
+        lines = para.text.split('\n')
+        for line in lines:
+            if not line: 
+                continue
+            current_page.append(line)
+
+            if sum(1 for _ in current_page) * 16 > 600:
+                pages.append(current_page)
+                current_page = []
+
+    if current_page:
+        pages.append(current_page)
+
+    for i, page in enumerate(pages):
+        image = Image.new('RGB', (800, 600), color='white')
+        draw = ImageDraw.Draw(image)
+        y = 0
+        for line in page:
+            draw.text((10, y), line, font=font, fill='black')
+            y += 16
+
         image_path = os.path.join(output_folder, f"page_{i+1}.png")
         image.save(image_path, "PNG")
 
