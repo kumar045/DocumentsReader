@@ -7,14 +7,39 @@ from openpyxl import load_workbook
 from weasyprint import HTML
 
 def get_text_size(text, font, max_width):
+    words = text.split(' ')
     lines = []
-    words = text.split()
     while words:
         line = ''
-        while words and font.getsize(line + words[0])[0] <= max_width:
+        while words and font.getbbox(line + words[0])[2] <= max_width:
             line = line + (words.pop(0) + ' ')
         lines.append(line)
     return lines
+
+def convert_docx_to_images(docx_path, output_folder):
+    doc = Document(docx_path)
+    font_path = "/kaggle/input/fontforapp/DejaVuSans.ttf"
+    max_width = 800
+    padding = 10
+    
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    for i, para in enumerate(doc.paragraphs):
+        text = para.text
+        font = ImageFont.truetype(font_path, 15)
+        lines = get_text_size(text, font, max_width - 2 * padding)
+        max_height = sum(font.getbbox(line)[3] - font.getbbox(line)[1] for line in lines) + 2 * padding
+        image = Image.new('RGB', (max_width, max_height), color=(255, 255, 255))
+        draw = ImageDraw.Draw(image)
+        
+        y = padding
+        for line in lines:
+            draw.text((padding, y), line, font=font, fill=(0, 0, 0))
+            y += font.getbbox(line)[3] - font.getbbox(line)[1]
+
+        image_path = os.path.join(output_folder, f"page_{i+1}.png")
+        image.save(image_path, "PNG")
 
 def create_image_with_text(text, font_path, max_width=800, padding=10):
     font = ImageFont.truetype(font_path, 15)
@@ -33,16 +58,7 @@ def convert_pdf_to_images(pdf_path, output_folder):
     for i, image in enumerate(images):
         image_path = os.path.join(output_folder, f"page_{i+1}.png")
         image.save(image_path, "PNG")
-
-def convert_docx_to_images(docx_path, output_folder):
-    doc = Document(docx_path)
-    font_path = "font/DejaVuSans.ttf"
-    for i, para in enumerate(doc.paragraphs):
-        image = create_image_with_text(para.text, font_path)
-        image_path = os.path.join(output_folder, f"page_{i+1}.png")
-        image.save(image_path, "PNG")
-
-
+        
 def convert_txt_to_images(txt_path, output_folder):
     with open(txt_path, "r") as file:
         text = file.read()
